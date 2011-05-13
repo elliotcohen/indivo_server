@@ -242,6 +242,7 @@ def load_access_rules():
            medication_list,
            medicationorder_list,
            medicationfill_list,
+           medicationadministration_list,
            medicationscheduleitem_list,
            schedulegroup_list,
            adherenceitem_list,

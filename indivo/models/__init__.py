@@ -45,6 +45,7 @@ from fact_objects.lab                   import Lab
 from fact_objects.medication            import Medication
 from fact_objects.medicationorder       import MedicationOrder
 from fact_objects.medicationfill        import MedicationFill
+from fact_objects.medicationadministration        import MedicationAdministration
 from fact_objects.medicationscheduleitem import MedicationScheduleItem
 from fact_objects.schedulegroup         import ScheduleGroup
 from fact_objects.adherenceitem         import AdherenceItem
