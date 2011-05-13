@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://indivo.org/vocab/xml/documents#"
+	   xmlns:indivo="http://indivo.org/vocab/xml/documents#"
+	   elementFormDefault="qualified">
+
+	<xs:include schemaLocation="codes.xsd" />
+	<xs:include schemaLocation="provider.xsd" />
+	<xs:include schemaLocation="values.xsd" />
+
+	<xs:complexType name="ActiveIngredient">
+		<xs:sequence>
+			<xs:element name="name" type="indivo:CodedValue" minOccurs="1" maxOccurs="1" />
+			<xs:element name="strength" type="indivo:ValueAndUnit" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Medication">
+		<xs:sequence>
+			<xs:element name="name" type="indivo:CodedValue" minOccurs="1" maxOccurs="1" />
+			<xs:element name="orderType" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="orderedBy" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="dateTimeOrdered" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+			<xs:element name="dateTimeExpires" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+			<xs:element name="indication" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="activeIngredients" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="activeIngredient" type="indivo:ActiveIngredient" minOccurs="1" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="dose" type="indivo:ValueAndUnit" minOccurs="1" maxOccurs="1" />
+			<xs:element name="form" type="indivo:CodedValue" minOccurs="1" maxOccurs="1" />
+			<xs:element name="route" type="indivo:CodedValue" minOccurs="1" maxOccurs="1" />
+			<xs:element name="frequency" type="indivo:CodedValue" minOccurs="1" maxOccurs="1" />
+			<xs:element name="amountOrdered" type="indivo:ValueAndUnit" minOccurs="0" maxOccurs="1" />
+			<xs:element name="refills" type="xs:integer" minOccurs="0" maxOccurs="1" />
+			<xs:element name="substitutionPermitted" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="instructions" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="dateTimeStarted" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+			<xs:element name="dateTimeStopped" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+			<xs:element name="reasonStopped" type="xs:string" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:element name="Medication" type="indivo:Medication" />
+
+</xs:schema>
+
