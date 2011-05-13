@@ -6,6 +6,7 @@ from measurement              import *
 from medication               import *
 from medicationscheduleitem   import *
 from medicationorder          import *
+from medicationfill           import *
 from schedulegroup            import *
 from adherenceitem            import *
 from videomessage             import *

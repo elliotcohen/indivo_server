@@ -13,8 +13,8 @@ class MedicationOrder(Fact):
   name_abbrev = models.CharField(max_length=20, null=True)
   order_type=models.CharField(null=True, max_length=200)
   ordered_by=models.CharField(null=True, max_length=200)
-  date_ordered=models.DateField()
-  date_expires=models.DateField()
+  date_ordered=models.DateField(null=True)
+  date_expires=models.DateField(null=True)
   indication=models.TextField(null=True)
   amountordered_unit=models.CharField(null=True, max_length=100)
   amountordered_textvalue=models.CharField(null=True, max_length=20)
@@ -22,8 +22,8 @@ class MedicationOrder(Fact):
   amountordered_unit_type=models.CharField(null=True, max_length=200)
   amountordered_unit_value=models.CharField(null=True, max_length=20)
   amountordered_unit_abbrev=models.CharField(null=True, max_length=20)
-  refills=models.IntegerField()
-  substitution_permitted=models.BooleanField()
+  refills=models.IntegerField(null=True)
+  substitution_permitted=models.BooleanField(null=True)
   instructions=models.TextField(null=True)
 
   def __unicode__(self):
