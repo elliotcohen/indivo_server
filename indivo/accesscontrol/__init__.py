@@ -240,6 +240,7 @@ def load_access_rules():
            immunization_list,
            allergy_list,
            medication_list,
+           medicationorder_list,
            medicationscheduleitem_list,
            schedulegroup_list,
            adherenceitem_list,
