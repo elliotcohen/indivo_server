@@ -11,6 +11,20 @@ class MedicationScheduleItem(Fact):
   name_type = models.CharField(max_length=200, null=True)
   name_value = models.CharField(max_length=200, null=True)
   name_abbrev = models.CharField(max_length=20, null=True)
+  scheduled_by = models.CharField(max_length=200)
+  date_scheduled = models.DateField(null=True)
+  date_start = models.DateField(null=True)
+  date_end = models.DateField(null=True)
+  recurrencerule_frequency = models.CharField(max_length=200)
+  recurrencerule_frequency_type = models.CharField(max_length=200, null=True)
+  recurrencerule_frequency_value = models.CharField(max_length=200, null=True)
+  recurrencerule_frequency_abbrev = models.CharField(max_length=20, null=True)
+  recurrencerule_interval = models.CharField(max_length=200)
+  recurrencerule_interval_type = models.CharField(max_length=200, null=True)
+  recurrencerule_interval_value = models.CharField(max_length=200, null=True)
+  recurrencerule_interval_abbrev = models.CharField(max_length=20, null=True)
+  recurrencerule_dateuntil=models.DateField(null=True)
+  recurrencerule_count=models.IntegerField(null=True)
   dose_textvalue = models.CharField(null=True, max_length=100)
   dose_value = models.CharField(null=True, max_length=20)
   dose_unit = models.CharField(null=True, max_length=40)
@@ -18,22 +32,8 @@ class MedicationScheduleItem(Fact):
   dose_unit_value = models.CharField(null=True, max_length=20)
   dose_unit_abbrev = models.CharField(null=True, max_length=20)
   instructions = models.TextField(null=True)
-  datetime_scheduled = models.DateField(null=True)
-  scheduled_by = models.CharField(max_length=200)
-
-  def scheduled_actions():
-    relationship = DocumentSchema.objects.get(type=DocumentSchema.expand_rel('ScheduledAction'))
-    docs = Document.objects.filter(record=self.document.record,
-                                   status=self.document.status,
-                                   rels_as_doc_1__document_0__original=self.document.original_id, # doc is related to passed document
-                                   rels_as_doc_1__relationship=relationship) # AND relation type is correct
-    if len(docs):
-      return docs
-    else:
-      return []
-
 
 
   def __unicode__(self):
-    return 'Medication %s' % self.id
+    return 'MedicationScheduleItem %s' % self.id
 
