@@ -32,6 +32,13 @@ def _medication_list(request, limit, offset, status, order_by='created_at', reco
                   Medication.objects.select_related().filter(
                     record=record, 
                     document__status=status).order_by(processed_order_by))
+  """  
+  medications = []
+  relationship =  DocumentSchema.objects.get(type=DocumentSchema.expand_rel('ScheduledAction'))
+  for med in medication_objs:
+    rels = Document.objects.filter(record=record, status=status, rels_as_doc_0__document_1__original=med.document.original_id, rels_as_doc_0__relationship=relationship)
+    medications += [med, rels]
+  """
   return render_template('reports/medications', 
                           { 'medications' : medications[offset:offset+limit],
                             'trc' : len(medications),

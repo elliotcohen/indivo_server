@@ -22,6 +22,10 @@ from idp_objs.measurement           import IDP_Measurement
 from idp_objs.immunization          import IDP_Immunization
 from idp_objs.lab                   import IDP_Lab
 from idp_objs.medication            import IDP_Medication
+from idp_objs.medicationscheduleitem            import IDP_MedicationScheduleItem
+from idp_objs.schedulegroup         import IDP_ScheduleGroup
+from idp_objs.adherenceitem         import IDP_AdherenceItem
+from idp_objs.videomessage          import IDP_VideoMessage
 from idp_objs.problem               import IDP_Problem
 from idp_objs.procedure             import IDP_Procedure
 from idp_objs.simple_clinical_note  import IDP_SimpleClinicalNote
@@ -33,16 +37,20 @@ OCON = 'ocon'
 DP_DOBJ_PROCESS   = 'process'
 DP_DOBJ_POST_DATA = 'post_data'
 DOC_CLASS_REL     = { 
-                  'http://indivo.org/vocab/xml/documents#Allergy'       :   {'class' : 'IDP_Allergy',       'stylesheet' : 'allergy', 'schema' : 'allergy'},
-                  'http://indivo.org/vocab/xml/documents#SimpleClinicalNote'  :   {'class' : 'IDP_SimpleClinicalNote',       'stylesheet' : 'simple_clinical_note', 'schema' : 'simplenote'},
-                  'http://indivo.org/vocab/xml/documents#Equipment'     :   {'class' : 'IDP_Equipment',     'stylesheet' : 'equipment', 'schema' : 'equipment'},
-                  'http://indivo.org/vocab/xml/documents#HBA1C'         :   {'class' : 'IDP_Measurement'},
-                  'http://indivo.org/vocab/xml/documents#Immunization'  :   {'class' : 'IDP_Immunization',  'stylesheet' : 'immunization', 'schema' : 'immunization'},
-                  'http://indivo.org/vocab/xml/documents#Lab'           :   {'class' : 'IDP_Lab',           'stylesheet' : 'lab', 'schema' : 'lab'},
-                  'http://indivo.org/vocab/xml/documents#Medication'    :   {'class' : 'IDP_Medication',    'stylesheet' : 'medication', 'schema' : 'medication'},
-                  'http://indivo.org/vocab/xml/documents#Problem'       :   {'class' : 'IDP_Problem',       'stylesheet' : 'problem', 'schema' : 'problem'},
-                  'http://indivo.org/vocab/xml/documents#Procedure'     :   {'class' : 'IDP_Procedure',     'stylesheet' : 'procedure', 'schema' : 'procedure'},
-                  'http://indivo.org/vocab/xml/documents#VitalSign'     :   {'class' : 'IDP_Vitals',        'stylesheet' : 'vitalsign', 'schema' : 'vitals'}
+  'http://indivo.org/vocab/xml/documents#Allergy'       :   {'class' : 'IDP_Allergy',       'stylesheet' : 'allergy', 'schema' : 'allergy'},
+  'http://indivo.org/vocab/xml/documents#SimpleClinicalNote'  :   {'class' : 'IDP_SimpleClinicalNote',       'stylesheet' : 'simple_clinical_note', 'schema' : 'simplenote'},
+  'http://indivo.org/vocab/xml/documents#Equipment'     :   {'class' : 'IDP_Equipment',     'stylesheet' : 'equipment', 'schema' : 'equipment'},
+  'http://indivo.org/vocab/xml/documents#HBA1C'         :   {'class' : 'IDP_Measurement'},
+  'http://indivo.org/vocab/xml/documents#Immunization'  :   {'class' : 'IDP_Immunization',  'stylesheet' : 'immunization', 'schema' : 'immunization'},
+  'http://indivo.org/vocab/xml/documents#Lab'           :   {'class' : 'IDP_Lab',           'stylesheet' : 'lab', 'schema' : 'lab'},
+  'http://indivo.org/vocab/xml/documents#Medication'    :   {'class' : 'IDP_Medication',    'stylesheet' : 'medication', 'schema' : 'medication'},
+  'http://indivo.org/vocab/xml/documents#MedicationScheduleItem'    :   {'class' : 'IDP_MedicationScheduleItem',    'stylesheet' : 'medicationscheduleitem', 'schema' : 'medicationscheduleitem'},
+  'http://indivo.org/vocab/xml/documents#ScheduleGroup'    :   {'class' : 'IDP_ScheduleGroup',    'stylesheet' : 'schedulegroup', 'schema' : 'schedulegroup'},
+  'http://indivo.org/vocab/xml/documents#AdherenceItem'    :   {'class' : 'IDP_AdherenceItem',    'stylesheet' : 'adherenceitem', 'schema' : 'adherenceitem'},
+  'http://indivo.org/vocab/xml/documents#VideoMessage'    :   {'class' : 'IDP_VideoMessage',    'stylesheet' : 'videomessage', 'schema' : 'videomessage'},
+  'http://indivo.org/vocab/xml/documents#Problem'       :   {'class' : 'IDP_Problem',       'stylesheet' : 'problem', 'schema' : 'problem'},
+  'http://indivo.org/vocab/xml/documents#Procedure'     :   {'class' : 'IDP_Procedure',     'stylesheet' : 'procedure', 'schema' : 'procedure'},
+  'http://indivo.org/vocab/xml/documents#VitalSign'     :   {'class' : 'IDP_Vitals',        'stylesheet' : 'vitalsign', 'schema' : 'vitals'}
                 }
 
 DEFAULT_PREFIX= "http://indivo.org/vocab/xml/documents#"
@@ -134,6 +142,7 @@ class DocumentProcessing:
           raise ValueError("BAD SCHEMA PATH: %s"%schema_path)
 
   def validate_xml(self, xml_doc, xsd_doc):
+    print "validate_xml"
     # the <include /> tags in our xsd files are relative paths from the schema dir,
     # so lxml won't find the referenced files unless we resolve the schemaLocation property.
     # We're only looking at the top level, to avoid slow reparsing the entire document
@@ -149,6 +158,7 @@ class DocumentProcessing:
     if schema.validate(doc):
       return True
     else:
+      print "Input document didn't validate, error was: %s"%(schema.error_log.last_error)
       raise ValueError("Input document didn't validate, error was: %s"%(schema.error_log.last_error))
     
 
@@ -168,6 +178,7 @@ class DocumentProcessing:
       doc = etree.XML(xml_doc)
       result = style(doc)
       result_str = str(result)
+      print "apply stylesheet"
 
       # Return result
       return result_str
@@ -192,13 +203,22 @@ class DocumentProcessing:
         if schema:
           self.validate_xml(self.doc[OCON], schema)
 
+      print "xml validated"
+
       # Get the object that corresponds to the incoming xml node name
       dp_data_obj = globals()[self.doc_class_rel[doc_schema.type]['class']]()
 
+      print "loaded class"
+
       # Retrieve a stylesheet, if there is one
       stylesheet = self.get_stylesheet()
+
+      print "retrieved stylsheet"
+
       if stylesheet:
         self.set_doc(self.apply_stylesheet(self.doc[OCON], stylesheet))
+
+      print "applied stylesheet"
 
       # Test for a process method
       # If dp_data_obj has a process method then use it
@@ -215,6 +235,7 @@ class DocumentProcessing:
           f_objs = []
           for data in doc_data:
             f_objs.append(dp_data_obj.post_data(**data))
+            print "processing fact object"
           if f_objs:
             return {self.f_objs_str : f_objs}
         except ValueError, e:
@@ -277,8 +298,10 @@ class DocumentProcessing:
 
   def get_type(self):
     if not self.doctype:
+      print "there is no doctype"
       if self.doc[DOM] is not None:
         self.doctype = "%s%s" % (self.get_root_node_ns(), self.get_root_node_name())
+        print "Doctype: " + self.doctype
     return self.doctype
 
   def get_document_schema(self):

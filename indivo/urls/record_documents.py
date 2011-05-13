@@ -60,7 +60,7 @@ urlpatterns = patterns('',
 
     # document types
     # disabled 2010-08-15 we will only use the query parameter for this
-    # (r'^types/(?P<type>[A-Za-z0-9._%-:#]+)/$', document_list),
+    #(r'^types/(?P<type>[A-Za-z0-9._%-:#]+)/$', document_list),
 
     # document rels
     (r'^(?P<document_id_0>[^/]+)/rels/(?P<rel>[^/]+)/(?P<document_id_1>[^/]+)$', 

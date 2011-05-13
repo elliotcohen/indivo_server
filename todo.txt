@@ -1,0 +1,11 @@
+Critical Path:
+1. Clear and reset app add 1 medication, schedule item and group and double check that it is working as expected.
+2. Why is read_scheduleitems returning nothing - it should have 1 doc in it.
+2. Get relationships working inside reports 
+
+
+
+
+1. Remove IDP objects (schedule groups and items)
+2. Remove stylesheets maybe?
+

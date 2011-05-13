@@ -4,13 +4,13 @@
   <Summary total_document_count="{{trc}}" limit="{{limit}}" offset="{{offset}}" order_by="{{order_by}}" />
 {% endblock %}
 {% block report %}
-{% for medication in medications %}
+{% for videomessage in videomessages %}
 <Report>
   <Meta>
-    {{ medication.document_id|get_doc_obj_rels }}
+    {{ videomessage.id|get_doc_obj_rels }}
   </Meta>
   <Item>
-    {{ medication.document.content|safe }}
+    {{ videomessage.content|safe }}
   </Item>
 </Report>
 {% endfor %}

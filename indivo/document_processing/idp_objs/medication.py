@@ -6,16 +6,23 @@ DOM = 'dom'
 
 class IDP_Medication:
 
-  def post_data(self, date_started=None,
-                      date_stopped=None,
+  def post_data(self, orderType=None,
+											orderedBy=None,
+											dateTimeOrdered=None,
+											dateTimeExpires=None,
+											indication=None,
                       name=None,
                       name_type=None,
                       name_value=None,
                       name_abbrev=None,
-                      brand_name=None,
-                      brand_name_type=None,
-                      brand_name_value=None,
-                      brand_name_abbrev=None,
+                      form=None,
+                      form_type=None,
+                      form_value=None,
+                      form_abbrev=None,
+                      activeIngredient_name=None,
+                      activeIngredient_name_type=None,
+                      activeIngredient_name_value=None,
+                      activeIngredient_name_abbrev=None,
                       dose_unit=None,
                       dose_textvalue=None,
                       dose_value=None,
@@ -26,73 +33,96 @@ class IDP_Medication:
                       route_type=None,
                       route_value=None,
                       route_abbrev=None,
-                      strength_value=None,
-                      strength_textvalue=None,
-                      strength_unit=None,
-                      strength_unit_type=None,
-                      strength_unit_value=None,
-                      strength_unit_abbrev=None,
+                      activeIngredient_strength_value=None,
+                      activeIngredient_strength_textvalue=None,
+                      activeIngredient_strength_unit=None,
+                      activeIngredient_strength_unit_type=None,
+                      activeIngredient_strength_unit_value=None,
+                      activeIngredient_strength_unit_abbrev=None,
                       frequency=None,
                       frequency_type=None,
                       frequency_value=None,
                       frequency_abbrev=None,
-                      prescribed_by_name=None,
-                      prescribed_by_institution=None,
-                      prescribed_on=None,
-                      prescribed_stop_on=None,
-                      dispense_as_written=None,
-                      prescription_duration=None,
-                      prescription_refill_info=None,
-                      prescription_instructions=None):
+                      amountOrdered_unit=None,
+                      amountOrdered_textvalue=None,
+                      amountOrdered_value=None,
+                      amountOrdered_unit_type=None, 
+                      amountOrdered_unit_value=None,
+                      amountOrdered_unit_abbrev=None,
+											refills=None,
+											substitutionPermitted=None,
+											instructions=None,
+											dateTimeStarted=None,
+											dateTimeStopped=None,
+											reasonStopped=None):
 
     """
     SZ: More error checking needs to be performed in this method
     """
-
     try:
-      if date_started:
-        date_started = iso8601.parse_utc_date(date_started)
-      if date_stopped:
-        date_stopped = iso8601.parse_utc_date(date_stopped)
+      if dateTimeStarted:
+        """
+        Elliot: 3/4 changed parse_utc_date to parse_date as it more correctly maps to the XML component.
+        """
+        dateTimeStarted = iso8601.parse_date(dateTimeStarted)
 
-      medication_obj = Medication.objects.create( date_started= date_started,
-                                                  date_stopped= date_stopped,
-                                                  name=name,
-                                                  name_type=name_type,
-                                                  name_value=name_value,
-                                                  name_abbrev=name_abbrev,
-                                                  brand_name=brand_name,
-                                                  brand_name_type=brand_name_type,
-                                                  brand_name_value=brand_name_value,
-                                                  brand_name_abbrev=brand_name_abbrev,
-                                                  dose_value=dose_value,
-                                                  dose_textvalue=dose_textvalue,
-                                                  dose_unit=dose_unit,
-                                                  dose_unit_type=dose_unit_type,
-                                                  dose_unit_value=dose_unit_value,
-                                                  dose_unit_abbrev=dose_unit_abbrev,
-                                                  route=route,
-                                                  route_type=route_type,
-                                                  route_value=route_value,
-                                                  route_abbrev=route_abbrev,
-                                                  strength_value=strength_value,
-                                                  strength_textvalue=strength_textvalue,
-                                                  strength_unit=strength_unit,
-                                                  strength_unit_type=strength_unit_type,
-                                                  strength_unit_value=strength_unit_value,
-                                                  strength_unit_abbrev=strength_unit_abbrev,
-                                                  frequency=frequency,
-                                                  frequency_type=frequency_type,
-                                                  frequency_value=frequency_value,
-                                                  frequency_abbrev=frequency_abbrev,
-                                                  prescribed_by_name=prescribed_by_name,
-                                                  prescribed_by_institution=prescribed_by_institution,
-                                                  prescribed_on=prescribed_on,
-                                                  prescribed_stop_on=prescribed_stop_on,
-                                                  dispense_as_written=dispense_as_written,
-                                                  prescription_duration=prescription_duration,
-                                                  prescription_refill_info=prescription_refill_info,
-                                                  prescription_instructions=prescription_instructions)
+      if dateTimeStopped:
+        dateTimeStopped = iso8601.parse_date(dateTimeStopped)
+
+      if dateTimeOrdered:
+        dateTimeOrdered = iso8601.parse_date(dateTimeOrdered)
+      if dateTimeExpires:
+        dateTimeExpires = iso8601.parse_date(dateTimeExpires)
+
+      medication_obj = Medication.objects.create(   datetime_started=dateTimeStarted,
+  																				          datetime_stopped=dateTimeStopped,
+                                                    order_type=orderType,
+                                                    ordered_by=orderedBy,
+                                                    datetime_ordered=dateTimeOrdered,
+	                                                  datetime_expires=dateTimeExpires,
+	                                                  indication=indication,
+                                                    name=name,
+                                                    name_type=name_type,
+                                                    name_value=name_value,
+                                                    name_abbrev=name_abbrev,
+                                                    activeingredient_name=activeIngredient_name,
+                                                    activeingredient_name_type=activeIngredient_name_type,
+                                                    activeingredient_name_value=activeIngredient_name_value,
+                                                    activeingredient_name_abbrev=activeIngredient_name_abbrev,
+                                                    form=form,
+                                                    form_type=form_type,
+                                                    form_value=form_value,
+                                                    form_abbrev=form_abbrev,
+                                                    dose_textvalue=dose_textvalue,
+                                                    dose_value=dose_value,
+                                                    dose_unit=dose_unit,
+                                                    dose_unit_type=dose_unit_type,
+                                                    dose_unit_value=dose_unit_value,
+                                                    dose_unit_abbrev=dose_unit_abbrev,
+                                                    route=route,
+                                                    route_type=route_type,
+                                                    route_value=route_value,
+                                                    route_abbrev=route_abbrev,
+                                                    activeingredient_strength_textvalue=activeIngredient_strength_textvalue,
+                                                    activeingredient_strength_value=activeIngredient_strength_value,
+                                                    activeingredient_strength_unit=activeIngredient_strength_unit,
+                                                    activeingredient_strength_unit_type=activeIngredient_strength_unit_type,
+                                                    activeingredient_strength_unit_value=activeIngredient_strength_unit_value,
+                                                    activeingredient_strength_unit_abbrev=activeIngredient_strength_unit_abbrev,
+                                                    frequency=frequency,
+                                                    frequency_type=frequency_type,
+                                                    frequency_value=frequency_value,
+                                                    frequency_abbrev=frequency_abbrev,
+                                                    amount_ordered_unit=amountOrdered_unit,
+                                                    amount_ordered_textvalue=amountOrdered_textvalue,
+                                                    amount_ordered_value=amountOrdered_value,
+                                                    amount_ordered_unit_type=amountOrdered_unit_type,
+                                                    amount_ordered_unit_value=amountOrdered_unit_value,
+                                                    amount_ordered_unit_abbrev=amountOrdered_unit_abbrev,
+	                                                  refills=refills,
+	                                                  substitution_permitted=substitutionPermitted,
+	                                                  instructions=instructions,
+	                                                  reason_stopped=reasonStopped)
 
       return medication_obj
     except Exception, e:

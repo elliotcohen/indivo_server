@@ -1,0 +1,24 @@
+{% load template_utils %}<ScheduleGroup xmlns="http://indivo.org/vocab/xml/documents#">
+  {% if schedulegroup.scheduled_by %}
+  <scheduledBy>{{ schedulegroup.scheduled_by }}</scheduledBy>
+  {% endif %}
+  {% if schedulegroup.datetime_scheduled %}
+  <dateTimeScheduled>{{ schedulegroup.datetime_scheduled|format_iso8601_date }}</dateTimeScheduled>
+  {% endif %}
+  {% if schedulegroup.datetime_start %}
+  <dateTimeStart>{{ schedulegroup.datetime_start|format_iso8601_date }}</dateTimeStart>
+  {% endif %}
+  {% if schedulegroup.datetime_end %}
+  <dateTimeEnd>{{ schedulegroup.datetime_end|format_iso8601_date }}</dateTimeEnd>
+  {% endif %}
+  <recurrenceRule>
+    {% if schedulegroup.frequency %}
+    <name{% if schedulegroup.frequency_type %} type="{{ schedulegroup.frequency_type }}" value="{{ schedulegroup.frequency_value }}"{% if schedulegroup.frequency_abbrev %} abbrev="{{ schedulegroup.frequency_abbrev }}"{% endif %}{% endif %}>{{ schedulegroup.frequency }}</name>
+    {% endif %} 
+    {% if schedulegroup.count %}
+    <count>{{ schedulegroup.count }}</count>
+    {% elseif schedulegroup.datetime_until %}
+    <dateTimeUntil>{{ schedulegroup.datetime_until|format_iso8601_date }}</dateTimeUntil>
+    {% endif %}   
+  </recurrenceRule>
+</ScheduleGroup>

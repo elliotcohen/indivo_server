@@ -53,6 +53,7 @@ def load_access_rules():
     return principal.isType('MachineApp') or principal.isSame(account)
   views = [account_info,
            account_info_set,
+           account_forgot_password,
            account_username_set]
   AccessRule('Account Management Owner', account_management_owner, views)
 
@@ -78,8 +79,7 @@ def load_access_rules():
   def account_management_admin_app_only(principal, **unused_args):
     return principal.isType('MachineApp')
   views = [account_create, 
-           account_search,
-           account_forgot_password, 
+           account_search, 
            account_authsystem_add,
            account_check_secrets,
            account_resend_secret,
@@ -159,7 +159,8 @@ def load_access_rules():
            carenet_apps_create,
            carenet_apps_delete,
            carenet_document_placement,
-           carenet_document_delete]
+           carenet_document_delete,
+           document_carenets]
   AccessRule('Carenet Control', carenet_control, views)
 
   def carenet_read_all_access(principal, carenet, account, **unused_args):
@@ -239,6 +240,10 @@ def load_access_rules():
            immunization_list,
            allergy_list,
            medication_list,
+           medicationscheduleitem_list,
+           schedulegroup_list,
+           adherenceitem_list,
+           videomessage_list,
            procedure_list,
            problem_list,
            equipment_list,
@@ -260,8 +265,7 @@ def load_access_rules():
            get_documents_by_rel,
            document_set_status,
            document_status_history,
-           document_rels,
-           document_carenets]
+           document_rels]
   AccessRule('Record Doc Access', record_doc_access, views)
   
   def record_admin_doc_access(principal, record, **unused_args):
@@ -313,9 +317,10 @@ def load_access_rules():
   AccessRule('App Doc Access', app_doc_access, views)
 
   # Audit-related views
+  # OLD SYSTEM permissions: account: full control, accesstoken: pha access to record
+  # does this make sense? should admins have audit access?
   def audit_access(principal, record, **unused_args):
-    return full_control(principal, record) \
-        or pha_record_access(principal, record)
+    return full_control(principal, record)
   views = [audit_record_view,
            audit_document_view,
            audit_function_view]

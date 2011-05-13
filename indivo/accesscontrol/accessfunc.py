@@ -25,43 +25,16 @@ def full_control(principal, record):
 #
 # So 2 functions:
 # Note: 'effective principal' is the proxied account if we have 
-#  an access token, and principal is the token itself. In autonomous apps,
-# the 'effective principal' is the app, not the account, so let's not rely
-# on effective principal. If we have an access token, then principal.account
-# will give the account or None.
+#  an access token, and principal is the token itself
 def pha_record_access(principal, record):
-    # Is the access token authorized to touch the record?
-    if not principal.scopedToRecord(record):
-        return False
-
-    # Is the account authorized to touch the record?
-    account = principal.account
-    if not account:
-        # This could be an autonomous app, in which case we should authorize
-        if not principal.effective_principal.is_autonomous:
-
-            # This was a two-legged call: no 3-legged access
-            return False
-    else:
-        if not full_control(account, record):
-            
-            # Account wasn't authorized to touch record
-            return False
-
-    return True
+    account = principal.effective_principal
+    return principal.scopedToRecord(record) \
+        and full_control(account, record)
 
 def pha_carenet_access(principal, carenet):
-    # Is the access token authorized to touch the carenet?
-    if not principal.isInCarenet(carenet):
-        return False
-
-    # Is the account authorized to touch the carenet?
-    # No need to worry about autonomous apps: they can't be in carenets
-    account = principal.account
-    if not account:
-        return False
+    account = principal.effective_principal
     return account.isInCarenet(carenet) \
-
+        and principal.isInCarenet(carenet)
 
 # Note: app-and-record-specific storage is NOT for record-sensitive data:
 # it merely allows apps to store app-specific data on a record-by-record
@@ -73,8 +46,10 @@ def pha_record_app_access(principal, record, app):
 
 # PHA 2-legged access
 # Note on semantics: The AccessToken Principal should always state that it 'Is the same'
-# as its effective principal. I.e., it 'is' the PHA in a 2-legged call, and it 'is' the Account
-# in a 3-legged call (though it is 'proxied by' a PHA).
-# Thus, isSame(app) will return true in 2-legged but not 3-legged calls.
+# as its proxying PHA. I.e., it 'is' the PHA in a 2-legged call, and it 'is' the PHA
+# in a 3-legged call (though it is 'proxying for' an Account).
+# In a 3-legged access, it makes sense to think of the AccessToken as follows: The token 'is'
+# a PHA 'proxying' an account. Thus, isSame(app) will return true, and effective_principal
+# will be the account.
 def pha_app_access(principal, app):
     return principal.isSame(app) 

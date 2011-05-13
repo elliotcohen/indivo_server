@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Reports>
+  <Summary total_document_count="2" limit="100" offset="0" order_by="-created_at" />
+  <Report>
+    <Meta>
+      <Document id="e10506b8-dd6c-49dd-a0a3-5f7b4049469f" type="http://indivo.org/vocab/xml/documents#Medication" size="1722" digest="08813521f087ca65861b51fd1f051b72792c9680037628af3cc94935141430cf" record_id="">
+        <createdAt>2011-03-05T23:28:44Z</createdAt>
+        <creator id="elliot.cohen@gmail.com" type="Account">
+          <fullname>Elliot Cohen</fullname>
+        </creator>
+        <original id="e10506b8-dd6c-49dd-a0a3-5f7b4049469f"/>
+        <status>active</status>
+        <nevershare>false</nevershare>
+      </Document>
+    </Meta>
+    <Item>
+      <Medication  xmlns="http://indivo.org/vocab/xml/documents#">
+      	<name type="http://rxnav.nlm.nih.gov/REST/rxcui/" value="617320">Atorvastatin 40 MG Oral Tablet [Lipitor]</name>
+      	<orderType>prescribed</orderType>
+      	<orderedBy>jking@records.media.mit.edu </orderedBy>
+      	<dateTimeOrdered>2011-02-14T09:00:00-04:00</dateTimeOrdered>
+      	<dateTimeExpires>2011-05-14T09:00:00-04:00</dateTimeExpires>
+      	<indication>elevated LDL cholesterol</indication>
+      	<activeIngredients>
+      		<activeIngredient>
+      			<name type="http://rxnav.nlm.nih.gov/REST/rxcui/" value="83367">atorvastatin</name>
+      			<strength>
+      				<value>40</value>
+      				<unit  type="http://indivo.org/codes/units#" value="mg" abbrev="mg">milligram</unit>
+      			</strength>
+      		</activeIngredient>
+      	</activeIngredients>
+      	<dose>
+      		<value>1</value>
+      		<unit  type="http://indivo.org/codes/units#" value="tab" abbrev="tab">tablet</unit>
+      	</dose>
+	      <form type="http://indivo.org/codes/form#" value="tab" abbrev="tab">tablet</form>
+	      <route type="http://indivo.org/codes/routes#" value="PO" abbrev="PO">by mouth</route>
+	      <frequency type="http://indivo.org/codes/frequency#" value="qd" abbrev="qd">once a day</frequency>
+	      <amountOrdered>
+		      <value>30</value>
+		      <unit  type="http://indivo.org/codes/units#" value="tab" abbrev="tab">tablet</unit>
+	      </amountOrdered>
+	      <refills>3</refills>
+	      <substitutionPermitted>true</substitutionPermitted>
+	      <instructions>take in the evening for maximum benefit</instructions>
+      </Medication>
+    </Item>
+  </Report>
+  <Report>
+    <Meta>
+      <Document id="f638c5ad-166a-402b-9bd0-215489553a8f" type="http://indivo.org/vocab/xml/documents#Medication" size="1575" digest="e42c6a9c523a9202f68a7a22d1c678baf52c2041d2123f84ceeb38a6f14cedcc" record_id="">
+        <createdAt>2011-03-05T23:24:28Z</createdAt>
+        <creator id="elliot.cohen@gmail.com" type="Account">
+          <fullname>Elliot Cohen</fullname>
+        </creator>
+        <original id="f638c5ad-166a-402b-9bd0-215489553a8f"/>
+        <status>active</status>
+        <nevershare>false</nevershare>
+      </Document>
+    </Meta>
+    <Item>
+      <Medication xmlns="http://indivo.org/vocab/xml/documents#">
+	      <name type="http://rxnav.nlm.nih.gov/REST/rxcui/" value="705814">Acetaminophen 21.7 MG/ML / Chlorpheniramine 0.833 MG/ML / Phenylephrine 0.333 MG/ML Oral Solution</name>
+	      <orderType>Self-Prescribed</orderType>
+	      <orderedBy>rpoole@records.media.mit.edu</orderedBy>
+	      <dateTimeOrdered>2009-05-16T12:51:00-04:00</dateTimeOrdered>
+	      <indication>upper respiratory infection symptom relief</indication>
+	      <activeIngredients>
+		      <activeIngredient>
+			      <name type="http://rxnav.nlm.nih.gov/REST/rxcui/" value=" 161">acetaminophen</name>
+			      <strength>
+				      <value>21.7</value>
+				      <unit  type="http://indivo.org/codes/units#" value="mg/mL" abbrev="mg/mL"> milligram per milliliter </unit>
+			      </strength>
+		      </activeIngredient>
+          <activeIngredient>
+			      <name type="http://rxnav.nlm.nih.gov/REST/rxcui/" value="2400">chlorpheniramine</name>
+			      <strength>
+				      <value>0.833</value>
+				      <unit type="http://indivo.org/codes/units#" value="mg/mL" abbrev="mg/mL">milligram per milliliter</unit>
+			      </strength>
+		      </activeIngredient>
+          <activeIngredient>
+			      <name type="http://rxnav.nlm.nih.gov/REST/rxcui/" value="8163">phenylephrine</name>
+			      <strength>
+				      <value>0.333</value>
+				      <unit  type="http://indivo.org/codes/units#" value="mg/mL" abbrev="mg/mL">milligram per milliliter</unit>
+			      </strength>
+		      </activeIngredient>
+	      </activeIngredients>
+	      <dose>
+		      <value>15</value>
+		      <unit  type="http://indivo.org/codes/units#" value="mL" abbrev="mL">milliliter</unit>
+	      </dose>
+	      <form type="http://indivo.org/codes/form#" value="oral solution" abbrev="oral solution">oral solution</form>
+	      <route type="http://indivo.org/codes/routes#" value="PO" abbrev="PO">by mouth</route>
+	      <frequency type="http://indivo.org/codes/frequency#" value="q8h" abbrev="q8h">every 8 hours</frequency>
+	      <amountOrdered/>
+	      <instructions>take with water every 8 hours</instructions>
+	      <dateTimeStarted>2009-05-16T12:51:11-04:00</dateTimeStarted>
+	      <dateTimeStopped>2009-05-20T12:14:32-04:00</dateTimeStopped>
+	      <reasonStopped>symptoms resolved</reasonStopped>
+      </Medication>
+    </Item>
+  </Report>
+</Reports>

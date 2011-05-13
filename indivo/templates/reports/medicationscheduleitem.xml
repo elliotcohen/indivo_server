@@ -1,0 +1,27 @@
+{% load template_utils %}<MedicationScheduleItem xmlns="http://indivo.org/vocab/xml/documents#">
+  {% if medicationscheduleitem.name %}
+  <name{% if medicationscheduleitem.name_type %} type="{{ medicationscheduleitem.name_type }}" value="{{ medicationscheduleitem.name_value }}"{% if medicationscheduleitem.name_abbrev %} abbrev="{{ medicationscheduleitem.name_abbrev }}"{% endif %}{% endif %}>{{ medicationscheduleitem.name }}</name>
+  {% endif %}
+  {% if medicationscheduleitem.scheduled_by %}
+  <scheduledBy>{{ medicationscheduleitem.scheduled_by }}</scheduledBy>
+  {% endif %}
+  {% if medicationscheduleitem.datetime_scheduled %}
+  <dateTimeScheduled>{{ medicationscheduleitem.datetime_scheduled|format_iso8601_date }}</dateTimeScheduled>
+  {% endif %}
+  {% if medicationscheduleitem.dose_value or medicationscheduleitem.dose_textvalue %}
+  <dose>
+    {% if medicationscheduleitem.dose_value %}
+    <value>{{ medicationscheduleitem.dose_value }}</value>
+    {% if medicationscheduleitem.dose_unit %}
+      <unit{% if medicationscheduleitem.dose_unit_type %} type="{{ medicationscheduleitem.dose_unit_type }}" value="{{ medicationscheduleitem.dose_unit_value }}"{% if medication.dose_unit_abbrev %} abbrev="{{ medicationscheduleitem.dose_unit_abbrev }}"{% endif %}{% endif %}>{{ medicationscheduleitem.dose_unit }}</unit>
+    {% endif %}
+    {% endif %}
+    {% if medicationscheduleitem.dose_textvalue %}
+    <textValue>{{ medicationscheduleitem.dose_textvalue }}</textValue>
+    {% endif %}
+  </dose>
+  {% endif %}
+  {% if medicationscheduleitem.instructions %}
+    <instructions>{{ medicationscheduleitem.instructions }}</instructions>
+  {% endif %}
+</MedicationScheduleItem>

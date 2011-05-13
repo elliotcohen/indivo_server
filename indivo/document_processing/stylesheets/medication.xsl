@@ -4,38 +4,72 @@
   <xsl:template match="indivodoc:Medication">
     <facts>
       <fact>
-        <date_started><xsl:value-of select='indivodoc:dateStarted/text()' /></date_started>
-        <date_stopped><xsl:value-of select='indivodoc:dateStopped/text()' /></date_stopped>
         <xsl:if test="indivodoc:name">
 	        <name><xsl:value-of select='indivodoc:name/text()' /></name>
 	        <name_type><xsl:value-of select='indivodoc:name/@type' /></name_type>
 	        <name_value><xsl:value-of select='indivodoc:name/@value' /></name_value>
 	        <name_abbrev><xsl:value-of select='indivodoc:name/@abbrev' /></name_abbrev>
         </xsl:if>
-        <xsl:if test="indivodoc:brandName">
-	        <brand_name><xsl:value-of select='indivodoc:brandName/text()' /></brand_name>
-	        <brand_name_type><xsl:value-of select='indivodoc:brandName/@type' /></brand_name_type>
-	        <brand_name_value><xsl:value-of select='indivodoc:brandName/@value' /></brand_name_value>
-	        <brand_name_abbrev><xsl:value-of select='indivodoc:brandName/@abbrev' /></brand_name_abbrev>
-        </xsl:if>
+        <orderType><xsl:value-of select='indivodoc:orderType/text()' /></orderType>
+        <orderedBy><xsl:value-of select='indivodoc:orderBy/text()' /></orderedBy>
+        <dateTimeOrdered><xsl:value-of select='indivodoc:dateTimeOrdered/text()' /></dateTimeOrdered>
+        <dateTimeExpires><xsl:value-of select='indivodoc:dateTimeExpires/text()' /></dateTimeExpires>
+        <indication><xsl:value-of select='indivodoc:indication/text()' /></indication>
+        <xsl:for-each select='indivodoc:activeIngredient'>
+          <xsl:apply-templates select='indivodoc:activeIngredient' />
+        </xsl:for-each>
         <xsl:apply-templates select='indivodoc:dose' /> 
+        <xsl:if test="indivodoc:form">
+	        <form><xsl:value-of select='indivodoc:form/text()' /></form>
+	        <form_type><xsl:value-of select='indivodoc:form/@type' /></form_type>
+	        <form_value><xsl:value-of select='indivodoc:form/@value' /></form_value>
+	        <form_abbrev><xsl:value-of select='indivodoc:form/@abbrev' /></form_abbrev>
+        </xsl:if>
         <xsl:if test="indivodoc:route">
           <route><xsl:value-of select='indivodoc:route/text()' /></route>
           <route_type><xsl:value-of select='indivodoc:route/@type' /></route_type>
           <route_value><xsl:value-of select='indivodoc:route/@value' /></route_value>
           <route_abbrev><xsl:value-of select='indivodoc:route/@abbrev' /></route_abbrev>
         </xsl:if>
-        <xsl:apply-templates select='indivodoc:strength' />
         <xsl:if test="indivodoc:frequency">
           <frequency><xsl:value-of select='indivodoc:frequency/text()' /></frequency>
           <frequency_type><xsl:value-of select='indivodoc:frequency/@type' /></frequency_type>
           <frequency_value><xsl:value-of select='indivodoc:frequency/@value' /></frequency_value>
           <frequency_abbrev><xsl:value-of select='indivodoc:frequency/@abbrev' /></frequency_abbrev>
         </xsl:if>
-
-        <xsl:apply-templates select='indivodoc:prescription' />  
+        <xsl:apply-templates select='indivodoc:amountOrdered' />
+        <xsl:if test='indivodoc:refills'>
+          <refills><xsl:value-of select='indivodoc:refills/text()' /></refills>
+        </xsl:if>
+        <xsl:if test='indivodoc:substitutionPermitted'>
+          <substitutionPermitted><xsl:value-of select='indivodoc:substitutionPermitted/text()' /></substitutionPermitted>
+        </xsl:if>
+        <xsl:if test='indivodoc:instructions'>
+          <instructions><xsl:value-of select='indivodoc:instructions/text()' /></instructions>
+        </xsl:if>
+        <xsl:if test='indivodoc:dateTimeStarted'>
+          <dateTimeStarted><xsl:value-of select='indivodoc:dateTimeStarted/text()' /></dateTimeStarted>
+        </xsl:if>
+        <xsl:if test='indivodoc:dateTimeStopped'>
+          <dateTimeStopped><xsl:value-of select='indivodoc:dateTimeStopped/text()' /></dateTimeStopped>
+        </xsl:if>  
+        <xsl:if test='indivodoc:reasonStopped'>
+          <reasonStopped><xsl:value-of select='indivodoc:reasonStopped/text()' /></reasonStopped>
+        </xsl:if>  
       </fact>
     </facts>
+  </xsl:template>
+
+
+
+  <xsl:template match="indivodoc:activeIngredient">
+		<xsl:if test="indivodoc:name">
+			<name><xsl:value-of select='indivodoc:name/text()' /></name>
+			<name_type><xsl:value-of select='indivodoc:name/@type' /></name_type>
+			<name_value><xsl:value-of select='indivodoc:name/@value' /></name_value>
+			<name_abbrev><xsl:value-of select='indivodoc:name/@abbrev' /></name_abbrev>
+		</xsl:if>  
+		<xsl:apply-templates select='indivodoc:strength' />  
   </xsl:template>
   <xsl:template match="indivodoc:dose">
     <xsl:if test="indivodoc:textValue">
@@ -51,6 +85,22 @@
       <dose_unit_type><xsl:value-of select='indivodoc:unit/@type' /></dose_unit_type>
       <dose_unit_value><xsl:value-of select='indivodoc:unit/@value' /></dose_unit_value>
       <dose_unit_abbrev><xsl:value-of select='indivodoc:unit/@abbrev' /></dose_unit_abbrev>
+    </xsl:if>
+  </xsl:template>
+  <xsl:template match="indivodoc:amountOrdered">
+    <xsl:if test="indivodoc:textValue">
+      <amountOrdered_textvalue><xsl:value-of select='indivodoc:textValue/text()' /></amountOrdered_textvalue>
+    </xsl:if>
+    <xsl:if test="indivodoc:value">
+      <amountOrdered_value><xsl:value-of select='indivodoc:value/text()' /></amountOrdered_value>
+    </xsl:if>
+    <xsl:if test="indivodoc:unit">
+      <amountOrdered_unit>
+        <xsl:value-of select='indivodoc:unit/text()' />
+      </amountOrdered_unit>
+      <amountOrdered_unit_type><xsl:value-of select='indivodoc:unit/@type' /></amountOrdered_unit_type>
+      <amountOrdered_unit_value><xsl:value-of select='indivodoc:unit/@value' /></amountOrdered_unit_value>
+      <amountOrdered_unit_abbrev><xsl:value-of select='indivodoc:unit/@abbrev' /></amountOrdered_unit_abbrev>
     </xsl:if>
   </xsl:template>
 
@@ -77,34 +127,5 @@
         <xsl:value-of select='indivodoc:unit/@abbrev' />
       </strength_unit_abbrev>
     </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="indivodoc:prescription">
-    <xsl:if test="indivodoc:by">
-      <prescribed_by_name>
-        <xsl:value-of select='indivodoc:by/name/text()' />
-      </prescribed_by_name>
-      <prescribed_by_institution>
-        <xsl:value-of select='indivodoc:by/institution/text()' />
-      </prescribed_by_institution>
-    </xsl:if>
-    <prescribed_on>
-      <xsl:value-of select='indivodoc:on/text()' />
-    </prescribed_on>
-    <prescribed_stop_on>
-      <xsl:value-of select='indivodoc:stopOn/text()' />
-    </prescribed_stop_on>
-    <dispense_as_written>
-      <xsl:value-of select='indivodoc:dispenseAsWritten/text()' />
-    </dispense_as_written>
-    <prescription_duration>
-      <xsl:value-of select='indivodoc:duration/text()' />
-    </prescription_duration>
-    <prescription_refill_info>
-      <xsl:value-of select='indivodoc:refillInfo/text()' />
-    </prescription_refill_info>
-    <prescription_instructions>
-      <xsl:value-of select='indivodoc:instructions/text()' />
-    </prescription_instructions>
   </xsl:template>
 </xsl:stylesheet>

@@ -339,7 +339,6 @@ class Document(Object):
     """
     fobjs_to_update = []
     if not self.processed:
-
       # import dynamically because DocumentProcessing imports DocumentSchema from this file
       from indivo.document_processing.document_processing import DocumentProcessing
       doc = DocumentProcessing(self.content, self.mime_type)
