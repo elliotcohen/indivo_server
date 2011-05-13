@@ -5,6 +5,7 @@ from lab                      import *
 from measurement              import *
 from medication               import *
 from medicationscheduleitem   import *
+from equipmentscheduleitem    import *
 from medicationorder          import *
 from medicationfill           import *
 from medicationadministration import *
