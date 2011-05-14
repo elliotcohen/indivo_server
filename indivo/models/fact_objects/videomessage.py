@@ -11,9 +11,9 @@ class VideoMessage(Fact):
   storage_type=models.CharField(max_length=200)   
   subject=models.CharField(max_length=200) 
   from_str=models.CharField(max_length=200)
-  datetime_recorded=models.DateField(null=True)
-  datetime_sent=models.DateField(null=True)
+  date_recorded=models.DateField(null=True)
+  date_sent=models.DateField(null=True)
 
   def __unicode__(self):
-    return 'Medication %s' % self.id
+    return 'VideoMessage %s' % self.id
 

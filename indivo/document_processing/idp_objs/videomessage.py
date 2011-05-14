@@ -10,8 +10,8 @@ class IDP_VideoMessage:
                       storageType=None, 
                       subject=None, 
                       from_str=None,
-                      dateTimeRecorded=None,
-                      dateTimeSent=None):
+                      dateRecorded=None,
+                      dateSent=None):
 
     """
     SZ: More error checking needs to be performed in this method
@@ -19,19 +19,19 @@ class IDP_VideoMessage:
 
     try:
      
-      if dateTimeRecorded:
-        dateTimeRecorded = iso8601.parse_date(dateTimeRecorded)
-      if dateTimeSent:
-        dateTimeSent = iso8601.parse_date(dateTimeSent)
+      if dateRecorded:
+        dateRecorded = iso8601.parse_date(dateRecorded)
+      if dateSent:
+        dateSent = iso8601.parse_date(dateSent)
 
       videomessage_obj = VideoMessage.objects.create( 
                       file_id=fileId,
                       storage_type=storageType,   
                       subject=subject, 
                       from_str=from_str,
-                      datetime_recorded=dateTimeRecorded,
-                      datetime_sent=dateTimeSent)
+                      date_recorded=dateRecorded,
+                      date_sent=dateSent)
 
       return videomessage_obj
     except Exception, e:
-      raise ValueError("problem processing medicationscheduleitem report " + str(e))
+      raise ValueError("problem processing videomessage report " + str(e))

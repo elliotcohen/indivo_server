@@ -13,13 +13,12 @@
 			<xs:element name="storageType" type="xs:string" minOccurs="1" maxOccurs="1" />
 			<xs:element name="subject" type="xs:string" minOccurs="1" maxOccurs="1" />
 			<xs:element name="from" type="xs:string" minOccurs="1" maxOccurs="1" />
-			<xs:element name="dateTimeRecorded" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
-			<xs:element name="dateTimeSent" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+			<xs:element name="dateRecorded" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+			<xs:element name="dateSent" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
 		</xs:sequence>
 	</xs:complexType>
 
   <xs:element name="VideoMessage" type="indivo:VideoMessage" />
 
 </xs:schema>
-
 

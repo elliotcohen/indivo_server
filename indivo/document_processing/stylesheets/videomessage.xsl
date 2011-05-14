@@ -8,8 +8,8 @@
         <storageType><xsl:value-of select='indivodoc:storageType/text()' /></storageType>
         <subject><xsl:value-of select='indivodoc:subject/text()' /></subject>
         <from_str><xsl:value-of select='indivodoc:from/text()' /></from_str>
-        <dateTimeRecorded><xsl:value-of select='indivodoc:dateTimeRecorded/text()' /></dateTimeRecorded>
-        <dateTimeSent><xsl:value-of select='indivodoc:dateTimeSent/text()' /></dateTimeSent>
+        <dateRecorded><xsl:value-of select='indivodoc:dateRecorded/text()' /></dateRecorded>
+        <dateSent><xsl:value-of select='indivodoc:dateSent/text()' /></dateSent>
       </fact>
     </facts>
   </xsl:template>
