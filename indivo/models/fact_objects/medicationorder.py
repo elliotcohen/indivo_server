@@ -23,7 +23,7 @@ class MedicationOrder(Fact):
   amountordered_unit_value=models.CharField(null=True, max_length=20)
   amountordered_unit_abbrev=models.CharField(null=True, max_length=20)
   refills=models.IntegerField(null=True)
-  substitution_permitted=models.BooleanField(null=True)
+  substitution_permitted=models.NullBooleanField()
   instructions=models.TextField(null=True)
 
   def __unicode__(self):
