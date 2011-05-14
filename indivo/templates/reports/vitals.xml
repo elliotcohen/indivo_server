@@ -7,27 +7,43 @@
 {% for vital in vitals %}
 <Report>
   <Meta>
-    {{ vital.document_id|get_doc_obj }}
+    {{ vital.document_id|get_doc_obj_rels }}
   </Meta>
   <Item>
     <VitalSign xmlns="http://indivo.org/vocab/xml/documents#">
-      {% if vital.date_measured %}
-        <dateMeasured>{{ vital.date_measured|format_iso8601_datetime }}</dateMeasured>
-      {% endif %}
       {% if vital.name %}
         <name{% if vital.name_type %} type="{{ vital.name_type }}" value="{{ vital.name_value }}"{% if vital.name_abbrev %} abbrev="{{ vital.name_abbrev }}"{% endif %}{% endif %}>{{ vital.name }}</name>
+      {% endif %}
+      {% if vital.measured_by %}
+        <measuredBy>{{ vital.measured_by }}</measuredBy>
+      {% endif %}
+      {% if vital.date_measured_start %}
+        <dateMeasuredStart>{{ vital.date_measured_start|format_iso8601_datetime }}</dateMeasuredStart>
+      {% endif %}
+      {% if vital.date_measured_end %}
+        <dateMeasuredEnd>{{ vital.date_measured_end|format_iso8601_datetime }}</dateMeasuredEnd>
       {% endif %}
       {% if vital.value %}
         <value>{{ vital.value }}</value>
       {% endif %}
-      {% if vital.unit %}
-        <unit{% if vital.unit_type %} type="{{ vital.unit_type }}" value="{{ vital.unit_value }}"{% if vital.unit_abbrev %} abbrev="{{ vital.unit_abbrev }}"{% endif %}{% endif %}>{{ vital.unit }}</unit>
+      {% if vital.result_unit %}
+        <result>
+          {% if vital.result_value %}
+            <value>{{ vital.result_value }}</value>
+          {% endif %}
+          {% if vital.result_unit %}
+            <unit {% if vital.result_unit_type %} type="{{ vital.result_unit_type }}" {% endif %} {% if vital.result_unit_value %} value="{{ vital.result_unit_value }}" {% endif %} {% if vital.result_unit_abbrev %} abbrev="{{ vital.result_unit_abbrev }}" {% endif %}>{{ vital.result_unit }}</unit>
+          {% endif %}
+        </result>
       {% endif %}
       {% if vital.site %}
         <site>{{ vital.site }}</site>
       {% endif %}
       {% if vital.position %}
         <position>{{ vital.position }}</position>
+      {% endif %}
+      {% if vital.technique %}
+        <technique>{{ vital.technique }}</technique>
       {% endif %}
       {% if vital.comments %}
         <comments>{{ vital.comments }}</comments>

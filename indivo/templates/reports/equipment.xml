@@ -7,7 +7,7 @@
 {% for e in equipment %}
 <Report>
   <Meta>
-    {{ e.document_id|get_doc_obj }}
+    {{ e.document_id|get_doc_obj_rels }}
   </Meta>
   <Item>
     <Equipment xmlns="http://indivo.org/vocab/xml/documents#">
