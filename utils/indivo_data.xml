@@ -3,14 +3,41 @@
     <auth_system short_name='auth_system_example' internal_p='False' />
   </auth_systems>
   <accounts>
-    <account email='elliot.cohen@gmail.com'>
-      <full_name>Elliot Cohen</full_name>
-      <contact_email>elliot.cohen@gmail.com</contact_email>
-      <username>elliotcohen</username>
-      <password>datta42-</password>
+    <account email='johnsmith@indivo.org'>
+      <full_name>John Smith</full_name>
+      <contact_email>johnsmith@example.org</contact_email>
+      <username>jsmith</username>
+      <password>jsmith-dope75</password>
       <records>
-        <record label='Elliot Cohen' />
-        <record label='Claire Suni' />
+        <record label='John S. Smith' />
+        <record label='Mary' />
+      </records>
+    </account>
+    <account email='user1@records.media.mit.edu'>
+      <full_name>User1 Testing</full_name>
+      <contact_email>sgilroy@mit.edu</contact_email>
+      <username>user1</username>
+      <password>user1-dope75</password>
+      <records>
+        <record label='User1 Testing Record' />
+      </records>
+    </account>
+    <account email='user2@records.media.mit.edu'>
+      <full_name>User2 Testing</full_name>
+      <contact_email>sgilroy@mit.edu</contact_email>
+      <username>user2</username>
+      <password>user2-dope75</password>
+      <records>
+        <record label='User2 Testing Record' />
+      </records>
+    </account>
+    <account email='user3@records.media.mit.edu'>
+      <full_name>User3 Testing</full_name>
+      <contact_email>sgilroy@mit.edu</contact_email>
+      <username>user3</username>
+      <password>user3-dope75</password>
+      <records>
+        <record label='User3 Testing Record' />
       </records>
     </account>
   </accounts>
@@ -64,15 +91,34 @@
   <machine_apps>
     <machine_app name='Sample Admin App' email='sample_admin_app@apps.indivo.org'>
       <consumer_key>sampleadmin_key</consumer_key>
-      <secret>sampleadmin_secret</secret>
+      <secret>sampleadmin_secret8454216</secret>
       <app_type>admin</app_type>
     </machine_app>
-    <machine_app name='Sample Chrome App' email='chrome@apps.indivo.org'>
+    <machine_app name='Chrome App' email='chrome@apps.indivo.org'>
       <consumer_key>chrome</consumer_key>
-      <secret>chrome</secret>
+      <secret>chrome_secret65238</secret>
+      <app_type>chrome</app_type>
+    </machine_app>
+
+    <machine_app name='CollaboRhythm Admin App' email='collaboRhythmAdmin@apps.indivo.org'>
+      <consumer_key>collaboRhythmAdmin</consumer_key>
+      <secret>collaboRhythmAdmin_secret35169</secret>
+      <app_type>admin</app_type>
+    </machine_app>
+    <machine_app name='CollaboRhythm Chrome App' email='collaboRhythmChrome@apps.indivo.org'>
+      <consumer_key>collaboRhythmChrome</consumer_key>
+      <secret>collaboRhythmChrome_secret93452</secret>
+      <app_type>chrome</app_type>
+    </machine_app>
+    <machine_app name='CollaboRhythm Indivo Account Creator App' email='indivoAccountCreator@apps.indivo.org'>
+      <consumer_key>indivoAccountCreator</consumer_key>
+      <secret>indivoAccountCreator_secret93452</secret>
       <app_type>chrome</app_type>
     </machine_app>
   </machine_apps>
+	<!-- ******************************************
+	Custom machine apps added by Scott Gilroy for records.media.mit.edu -->
+	<!-- ***************************************** -->
   <user_apps>
     <user_app name="Children's Hospital Boston Subscription Agent" email='indivoconnector@apps.indivo.org'>
       <consumer_key>hospital-connector</consumer_key>
@@ -97,6 +143,18 @@
       </start_url_template>
       <callback_url>
         /apps/allergies/after_auth
+      </callback_url>
+    </user_app>
+    <user_app name='Immunizations' email='immunizations@apps.indivo.org'>
+      <consumer_key>immunizations@apps.indivo.org</consumer_key>
+      <secret>immunizations</secret>
+      <frameable>True</frameable>
+      <has_ui>True</has_ui>
+      <start_url_template>
+        /apps/immunizations/start_auth?record_id={record_id}&amp;carenet_id={carenet_id}
+      </start_url_template>
+      <callback_url>
+        /apps/immunizations/after_auth
       </callback_url>
     </user_app>
     <user_app name='Labs' email='labs@apps.indivo.org'>
@@ -135,5 +193,36 @@
         /apps/problems/after_auth
       </callback_url>
     </user_app>
+	
+    <user_app name='Problems (localhost)' email='problems-localhost@apps.indivo.org'>
+	  <description>The Indivo Sample PHA is Indivo Problem List, which is used to maintain a very simple list of problems. This is an instance running at localhost for development/debugging purposes.</description>
+      <consumer_key>problems-localhost@apps.indivo.org</consumer_key>
+      <secret>problems-localhost</secret>
+      <frameable>True</frameable>
+      <has_ui>True</has_ui>
+      <start_url_template>
+        http://localhost:3001/start_auth?record_id={record_id}&amp;carenet_id={carenet_id}
+      </start_url_template>
+      <callback_url>
+        http://localhost:3001/after_auth
+      </callback_url>
+    </user_app>
+    <user_app name='Authentication Helper (localhost)' email='authentication-helper-localhost@apps.indivo.org'>
+	  <description>The Authentication Helper PHA is intended to help extract authentication tokens.</description>
+      <consumer_key>authentication-helper-localhost@apps.indivo.org</consumer_key>
+      <secret>authentication-helper</secret>
+      <frameable>True</frameable>
+      <has_ui>True</has_ui>
+      <start_url_template>
+        http://localhost:3002/start_auth?record_id={record_id}&amp;carenet_id={carenet_id}
+      </start_url_template>
+      <callback_url>
+        http://localhost:3002/after_auth
+      </callback_url>
+    </user_app>
+
   </user_apps>
+	<!-- ***************************************** -->
+	<!-- Custom user apps added by Scott Gilroy for records.media.mit.edu -->
+	<!-- ***************************************** -->
 </bootstrap>
