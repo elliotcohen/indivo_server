@@ -4,16 +4,19 @@
   <xsl:template match="indivodoc:AdherenceItem">
     <facts>
       <fact>
-        <xsl:if test="indivodoc:name">
-	        <name><xsl:value-of select='indivodoc:name/text()' /></name>
-	        <name_type><xsl:value-of select='indivodoc:name/@type' /></name_type>
-	        <name_value><xsl:value-of select='indivodoc:name/@value' /></name_value>
-	        <name_abbrev><xsl:value-of select='indivodoc:name/@abbrev' /></name_abbrev>
-        </xsl:if>
+        <name><xsl:value-of select='indivodoc:name/text()' /></name>
+        <name_type><xsl:value-of select='indivodoc:name/@type' /></name_type>
+        <name_value><xsl:value-of select='indivodoc:name/@value' /></name_value>
+        <name_abbrev><xsl:value-of select='indivodoc:name/@abbrev' /></name_abbrev>
         <reportedBy><xsl:value-of select='indivodoc:reportedBy/text()' /></reportedBy>
-        <dateTimeReported><xsl:value-of select='indivodoc:dateTimeReported/text()' /></dateTimeReported>
+        <dateReported><xsl:value-of select='indivodoc:dateReported/text()' /></dateReported>
+        <xsl:if test="indivodoc:recurrenceIndex">
+          <recurrenceIndex><xsl:value-of select='indivodoc:recurrenceIndex/text()' /></recurrenceIndex>
+        </xsl:if>
         <adherence><xsl:value-of select='indivodoc:adherence/text()' /></adherence>
-        <nonadherenceReason><xsl:value-of select='indivodoc:nonadherenceReason/text()' /></nonadherenceReason>
+        <xsl:if test="indivodoc:nonadherenceReason">
+          <nonadherenceReason><xsl:value-of select='indivodoc:nonadherenceReason/text()' /></nonadherenceReason>
+        </xsl:if>
       </fact>
     </facts>
   </xsl:template>

@@ -12,7 +12,8 @@ class IDP_AdherenceItem:
     name_value=None,
     name_abbrev=None,
     reportedBy=None,
-    dateTimeReported=None,
+    dateReported=None,
+    recurrenceIndex=None,
     adherence=None,
     nonadherenceReason=None):
 
@@ -24,24 +25,20 @@ class IDP_AdherenceItem:
       """
       Elliot: 3/4 changed parse_utc_date to parse_date
       """
-      if dateTimeReported:
-        dateTimeReported = iso8601.parse_date(dateTimeReported)
+      if dateReported:
+        dateReported = iso8601.parse_date(dateReported)
 
-      print "creating adherence obj"
-      print "Reported By: " + str(reportedBy)
       adherenceitem_obj = AdherenceItem.objects.create(   
                             name=name,
                             name_type=name_type,
                             name_value=name_value,
                             name_abbrev=name_abbrev,
                             reported_by=reportedBy,
-                            datetime_reported=dateTimeReported,
+                            date_reported=dateReported,
+                            recurrence_index=recurrenceIndex,
                             adherence=adherence,
                             nonadherence_reason=nonadherenceReason)
 
-
-      print "object created"
       return adherenceitem_obj
     except Exception, e:
-      print str(e)
       raise ValueError("problem processing medicationscheduleitem report " + str(e))

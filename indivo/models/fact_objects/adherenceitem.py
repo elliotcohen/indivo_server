@@ -12,7 +12,8 @@ class AdherenceItem(Fact):
   name_value=models.CharField(max_length=200, null=True)
   name_abbrev=models.CharField(max_length=20, null=True)
   reported_by=models.CharField(max_length=200)
-  datetime_reported=models.DateField(null=True)
+  date_reported=models.DateField(null=True)
+  recurrence_index=models.IntegerField(null=True)
   adherence=models.CharField(max_length=200)
   nonadherence_reason=models.CharField(max_length=200, null=True)
 
