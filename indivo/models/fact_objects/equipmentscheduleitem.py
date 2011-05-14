@@ -19,7 +19,7 @@ class EquipmentScheduleItem(Fact):
   recurrencerule_frequency_type = models.CharField(max_length=200, null=True)
   recurrencerule_frequency_value = models.CharField(max_length=200, null=True)
   recurrencerule_frequency_abbrev = models.CharField(max_length=20, null=True)
-  recurrencerule_interval = models.CharField(max_length=200)
+  recurrencerule_interval = models.CharField(null=True, max_length=200)
   recurrencerule_interval_type = models.CharField(max_length=200, null=True)
   recurrencerule_interval_value = models.CharField(max_length=200, null=True)
   recurrencerule_interval_abbrev = models.CharField(max_length=20, null=True)

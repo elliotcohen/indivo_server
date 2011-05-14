@@ -26,21 +26,21 @@
   </xsl:template>
 
   <xsl:template match="indivodoc:recurrenceRule">
-    <frequency><xsl:value-of select='indivodoc:frequency/text()' /></frequency>
-    <frequency_type><xsl:value-of select='indivodoc:frequency/@type' /></frequency_type>
-    <frequency_value><xsl:value-of select='indivodoc:frequency/@value' /></frequency_value>
-    <frequency_abbrev><xsl:value-of select='indivodoc:frequency/@abbrev' /></frequency_abbrev>
+    <recurrenceRule_frequency><xsl:value-of select='indivodoc:frequency/text()' /></recurrenceRule_frequency>
+    <recurrenceRule_frequency_type><xsl:value-of select='indivodoc:frequency/@type' /></recurrenceRule_frequency_type>
+    <recurrenceRule_frequency_value><xsl:value-of select='indivodoc:frequency/@value' /></recurrenceRule_frequency_value>
+    <recurrenceRule_frequency_abbrev><xsl:value-of select='indivodoc:frequency/@abbrev' /></recurrenceRule_frequency_abbrev>
     <xsl:if test="indivodoc:interval">
-      <interval><xsl:value-of select='indivodoc:interval/text()' /></interval>
-      <interval_type><xsl:value-of select='indivodoc:interval/@type' /></interval_type>
-      <interval_value><xsl:value-of select='indivodoc:interval/@value' /></interval_value>
-      <interval_abbrev><xsl:value-of select='indivodoc:interval/@abbrev' /></interval_abbrev>
+      <recurrenceRule_interval><xsl:value-of select='indivodoc:interval/text()' /></recurrenceRule_interval>
+      <recurrenceRule_interval_type><xsl:value-of select='indivodoc:interval/@type' /></recurrenceRule_interval_type>
+      <recurrenceRule_interval_value><xsl:value-of select='indivodoc:interval/@value' /></recurrenceRule_interval_value>
+      <recurrenceRule_interval_abbrev><xsl:value-of select='indivodoc:interval/@abbrev' /></recurrenceRule_interval_abbrev>
     </xsl:if>
     <xsl:if test="indivodoc:dateUntil">
-      <dateUntil><xsl:value-of select='indivodoc:dateUntil/text()' /></dateUntil>
+      <recurrenceRule_dateUntil><xsl:value-of select='indivodoc:dateUntil/text()' /></recurrenceRule_dateUntil>
     </xsl:if>
     <xsl:if test="indivodoc:count">
-      <count><xsl:value-of select='indivodoc:count/text()' /></count>
+      <recurrenceRule_count><xsl:value-of select='indivodoc:count/text()' /></recurrenceRule_count>
     </xsl:if>
   </xsl:template>
 
@@ -52,9 +52,7 @@
       <dose_value><xsl:value-of select='indivodoc:value/text()' /></dose_value>
     </xsl:if>
     <xsl:if test="indivodoc:unit">
-      <dose_unit>
-        <xsl:value-of select='indivodoc:unit/text()' />
-      </dose_unit>
+      <dose_unit><xsl:value-of select='indivodoc:unit/text()' /></dose_unit>
       <dose_unit_type><xsl:value-of select='indivodoc:unit/@type' /></dose_unit_type>
       <dose_unit_value><xsl:value-of select='indivodoc:unit/@value' /></dose_unit_value>
       <dose_unit_abbrev><xsl:value-of select='indivodoc:unit/@abbrev' /></dose_unit_abbrev>

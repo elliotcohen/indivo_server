@@ -12,7 +12,7 @@
 			<xs:element name="name" type="indivo:CodedValue" minOccurs="1" maxOccurs="1" />
 			<xs:element name="filledBy" type="xs:string" minOccurs="1" maxOccurs="1" />
 			<xs:element name="dateFilled" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
-			<xs:element name="amountFilled" type=" indivo:ValueAndUnit " minOccurs="1" maxOccurs="1" />
+			<xs:element name="amountFilled" type="indivo:ValueAndUnit" minOccurs="1" maxOccurs="1" />
 			<xs:element name="ndc" type="indivo:CodedValue" minOccurs="0" maxOccurs="1" />
 			<xs:element name="fillSequenceNumber" type="xs:integer" minOccurs="0" maxOccurs="1" />
 			<xs:element name="lotNumber" type="xs:integer" minOccurs="0" maxOccurs="1" />
@@ -21,7 +21,7 @@
 		</xs:sequence>
 	</xs:complexType>
 
-  <xs:element name=" MedicationFill " type="indivo:MedicationFill" />
+  <xs:element name="MedicationFill" type="indivo:MedicationFill" />
 
 </xs:schema>
 

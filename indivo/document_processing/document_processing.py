@@ -23,6 +23,10 @@ from idp_objs.immunization          import IDP_Immunization
 from idp_objs.lab                   import IDP_Lab
 from idp_objs.medication            import IDP_Medication
 from idp_objs.medicationscheduleitem            import IDP_MedicationScheduleItem
+from idp_objs.equipmentscheduleitem            import IDP_EquipmentScheduleItem
+from idp_objs.medicationadministration            import IDP_MedicationAdministration
+from idp_objs.medicationfill            import IDP_MedicationFill
+from idp_objs.medicationorder            import IDP_MedicationOrder
 from idp_objs.schedulegroup         import IDP_ScheduleGroup
 from idp_objs.adherenceitem         import IDP_AdherenceItem
 from idp_objs.videomessage          import IDP_VideoMessage
@@ -45,6 +49,10 @@ DOC_CLASS_REL     = {
   'http://indivo.org/vocab/xml/documents#Lab'           :   {'class' : 'IDP_Lab',           'stylesheet' : 'lab', 'schema' : 'lab'},
   'http://indivo.org/vocab/xml/documents#Medication'    :   {'class' : 'IDP_Medication',    'stylesheet' : 'medication', 'schema' : 'medication'},
   'http://indivo.org/vocab/xml/documents#MedicationScheduleItem'    :   {'class' : 'IDP_MedicationScheduleItem',    'stylesheet' : 'medicationscheduleitem', 'schema' : 'medicationscheduleitem'},
+  'http://indivo.org/vocab/xml/documents#EquipmentScheduleItem'    :   {'class' : 'IDP_EquipmentScheduleItem',    'stylesheet' : 'equipmentscheduleitem', 'schema' : 'equipmentscheduleitem'},
+  'http://indivo.org/vocab/xml/documents#MedicationAdministration'    :   {'class' : 'IDP_MedicationAdministration',    'stylesheet' : 'medicationadministration', 'schema' : 'medicationadministration'},
+  'http://indivo.org/vocab/xml/documents#MedicationFill'    :   {'class' : 'IDP_MedicationFill',    'stylesheet' : 'medicationfill', 'schema' : 'medicationfill'},
+  'http://indivo.org/vocab/xml/documents#MedicationOrder'    :   {'class' : 'IDP_MedicationOrder',    'stylesheet' : 'medicationorder', 'schema' : 'medicationorder'},
   'http://indivo.org/vocab/xml/documents#ScheduleGroup'    :   {'class' : 'IDP_ScheduleGroup',    'stylesheet' : 'schedulegroup', 'schema' : 'schedulegroup'},
   'http://indivo.org/vocab/xml/documents#AdherenceItem'    :   {'class' : 'IDP_AdherenceItem',    'stylesheet' : 'adherenceitem', 'schema' : 'adherenceitem'},
   'http://indivo.org/vocab/xml/documents#VideoMessage'    :   {'class' : 'IDP_VideoMessage',    'stylesheet' : 'videomessage', 'schema' : 'videomessage'},
@@ -98,7 +106,11 @@ class DocumentProcessing:
   def set_doc(self, doc):
     ret = {}
     ret[OCON] = doc
+    print "is_binary: "
+    print self.is_binary
     if not self.is_binary:
+      print "self.get_dom"
+      print self.get_dom(self.get_clean_xml(doc))
       ret[DOM]  = self.get_dom(self.get_clean_xml(doc))
     self.doc  = ret
     return ret
@@ -228,6 +240,8 @@ class DocumentProcessing:
       else:
         doc_data = self.parse_standard_facts_doc(self.doc)
 
+      print "before post_data"
+
       # If dp_data_obj has the post_data method
       # then post it and set and return the fact obj
       if hasattr(dp_data_obj, DP_DOBJ_POST_DATA) and doc_data:
@@ -252,6 +266,9 @@ class DocumentProcessing:
           
           # we raise the exception, if processing fails we need to stop 
           raise e
+
+      print "document processing return"
+
     return False
 
   def parse_standard_facts_doc(self, doc):
@@ -282,6 +299,9 @@ class DocumentProcessing:
     """
     if self.doc[DOM] is not None:
       ns = self.get_root_node_ns()
+      print "NS"
+      print ns
+      print self.doc[DOM]
       return self.doc[DOM].tag.replace("{%s}" % ns, "")
 
   def get_root_node_ns(self):
@@ -298,10 +318,10 @@ class DocumentProcessing:
 
   def get_type(self):
     if not self.doctype:
-      print "there is no doctype"
+      print "self.doc: "
+      print self.doc
       if self.doc[DOM] is not None:
         self.doctype = "%s%s" % (self.get_root_node_ns(), self.get_root_node_name())
-        print "Doctype: " + self.doctype
     return self.doctype
 
   def get_document_schema(self):
@@ -318,7 +338,7 @@ class DocumentProcessing:
   def get_dom(self, doc):
     try:
       return etree.fromstring(doc)
-    except:
+    except Exception, e:
       return None
 
   def get_clean_xml(self, doc):

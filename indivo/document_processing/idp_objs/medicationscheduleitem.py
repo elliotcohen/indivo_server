@@ -35,7 +35,7 @@ class IDP_MedicationScheduleItem:
     """
     SZ: More error checking needs to be performed in this method
     """
-
+    print "top of post_data"
     try:
       if dateScheduled:
         """
@@ -60,6 +60,8 @@ class IDP_MedicationScheduleItem:
         Elliot: 3/4 changed parse_utc_date to parse_date to handle XML:datetime
         """
         recurrenceRule_dateUntil = iso8601.parse_date(recurrenceRule_dateUntil)
+
+      print "post_data about to create object"
 
       medicationscheduleitem_obj = MedicationScheduleItem.objects.create(   
                       name=name,
@@ -88,6 +90,8 @@ class IDP_MedicationScheduleItem:
                       dose_unit_abbrev=dose_unit_abbrev,
 											instructions=instructions)
 
+      print "after schedule item create"
       return medicationscheduleitem_obj
     except Exception, e:
+      print "Exception: " + str(e)
       raise ValueError("problem processing medicationscheduleitem report " + str(e))

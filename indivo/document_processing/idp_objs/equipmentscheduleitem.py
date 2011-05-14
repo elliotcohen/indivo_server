@@ -14,11 +14,11 @@ class IDP_EquipmentScheduleItem:
                       dateScheduled=None,
                       dateStart=None,
                       dateEnd=None,
-                      recurrenceRule_frequency=None
+                      recurrenceRule_frequency=None,
                       recurrenceRule_frequency_type=None,
                       recurrenceRule_frequency_value=None,
                       recurrenceRule_frequency_abbrev=None,
-                      recurrenceRule_interval=None
+                      recurrenceRule_interval=None,
                       recurrenceRule_interval_type=None,
                       recurrenceRule_interval_value=None,
                       recurrenceRule_interval_abbrev=None,
@@ -60,10 +60,10 @@ class IDP_EquipmentScheduleItem:
                       name_type=name_type,
                       name_value=name_value,
                       name_abbrev=name_abbrev,
-                      scheduled_by=scheduledBy
-											date_scheduled=dateScheduled
-                      date_start=dateStart
-                      date_end=dateEnd
+                      scheduled_by=scheduledBy,
+											date_scheduled=dateScheduled,
+                      date_start=dateStart,
+                      date_end=dateEnd,
                       recurrencerule_frequency=recurrenceRule_frequency,
                       recurrencerule_frequency_type=recurrenceRule_frequency_type,
                       recurrencerule_frequency_value=recurrenceRule_frequency_value,
@@ -74,14 +74,9 @@ class IDP_EquipmentScheduleItem:
                       recurrencerule_interval_abbrev=recurrenceRule_interval_abbrev,
                       recurrencerule_dateuntil=recurrenceRule_dateUntil,
                       recurrencerule_count=recurrenceRule_count,
-                      dose_unit=dose_unit,
-                      dose_textvalue=dose_textvalue,
-                      dose_value=dose_value,
-                      dose_unit_type=dose_unit_type, 
-                      dose_unit_value=dose_unit_value,
-                      dose_unit_abbrev=dose_unit_abbrev,
 											instructions=instructions)
 
       return equipmentscheduleitem_obj
     except Exception, e:
+      print "Error: " + str(e)
       raise ValueError("problem processing equipmentscheduleitem report " + str(e))
