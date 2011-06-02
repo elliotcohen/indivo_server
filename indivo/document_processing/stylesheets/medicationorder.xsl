@@ -35,18 +35,18 @@
 
   <xsl:template match="indivodoc:amountOrdered">
     <xsl:if test="indivodoc:textValue">
-      <dose_textvalue><xsl:value-of select='indivodoc:textValue/text()' /></dose_textvalue>
+      <amountOrdered_textvalue><xsl:value-of select='indivodoc:textValue/text()' /></amountOrdered_textvalue>
     </xsl:if>
     <xsl:if test="indivodoc:value">
-      <dose_value><xsl:value-of select='indivodoc:value/text()' /></dose_value>
+      <amountOrdered_value><xsl:value-of select='indivodoc:value/text()' /></amountOrdered_value>
     </xsl:if>
     <xsl:if test="indivodoc:unit">
-      <dose_unit>
+      <amountOrdered_unit>
         <xsl:value-of select='indivodoc:unit/text()' />
-      </dose_unit>
-      <dose_unit_type><xsl:value-of select='indivodoc:unit/@type' /></dose_unit_type>
-      <dose_unit_value><xsl:value-of select='indivodoc:unit/@value' /></dose_unit_value>
-      <dose_unit_abbrev><xsl:value-of select='indivodoc:unit/@abbrev' /></dose_unit_abbrev>
+      </amountOrdered_unit>
+      <amountOrdered_unit_type><xsl:value-of select='indivodoc:unit/@type' /></amountOrdered_unit_type>
+      <amountOrdered_unit_value><xsl:value-of select='indivodoc:unit/@value' /></amountOrdered_unit_value>
+      <amountOrdered_unit_abbrev><xsl:value-of select='indivodoc:unit/@abbrev' /></amountOrdered_unit_abbrev>
     </xsl:if>
   </xsl:template>
 </xsl:stylesheet>
